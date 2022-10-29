@@ -13,7 +13,7 @@ export default function Home() {
   // loading is set to true when we are waiting for a transaction to get mined
   const [loading, setLoading] = useState(false);
   // numberOfAllowlisted tracks the number of addresses's whitelisted
-  const [numberOfAllowlisted, setNumberOfAllowlisted] = useState(0);
+  const [numAllowlistedAddresses, setNumAllowlistedAddresses] = useState(0);
   // Create a reference to the Web3 Modal (used for connecting to Metamask) which persists as long as the page is open
   const web3ModalRef = useRef();
 
@@ -70,7 +70,7 @@ export default function Home() {
       await tx.wait();
       setLoading(false);
       // get the updated number of addresses in the whitelist
-      await getNumberOfAllowlisted();
+      await getNumAllowlistedAddresses();
       setJoinedAllowlist(true);
     } catch (err) {
       console.error(err);
@@ -80,7 +80,7 @@ export default function Home() {
   /**
    * getNumberOfAllowlisted:  gets the number of allowlisted addresses
    */
-  const getNumberOfAllowlisted = async () => {
+  const getNumAllowlistedAddresses = async () => {
     try {
       // Get the provider from web3Modal, which in our case is MetaMask
       // No need for the Signer here, as we are only reading state from the blockchain
@@ -93,9 +93,9 @@ export default function Home() {
         provider
       );
       // call the numAddressesAllowlisted from the contract
-      const _numberOfAllowlisted =
-        await allowlistContract.numAddressesAllowlisted();
-      setNumberOfAllowlisted(_numberOfAllowlisted);
+      const _numAllowlistedAddresses =
+        await allowlistContract.numAllowlistedAddresses();
+      setNumAllowlistedAddresses(_numAllowlistedAddresses);
     } catch (err) {
       console.error(err);
     }
@@ -138,7 +138,7 @@ export default function Home() {
       setWalletConnected(true);
 
       checkIfAddressInAllowlist();
-      getNumberOfAllowlisted();
+      getNumAllowlistedAddresses();
     } catch (err) {
       console.error(err);
     }
@@ -204,7 +204,7 @@ export default function Home() {
             Its an NFT collection for developers in Crypto.
           </div>
           <div className={styles.description}>
-            {numberOfAllowlisted} have already joined the Allowlist
+            {numAllowlistedAddresses} have already joined the Allowlist
           </div>
           {renderButton()}
         </div>
