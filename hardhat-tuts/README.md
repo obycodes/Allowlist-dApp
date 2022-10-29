@@ -1,6 +1,6 @@
-# This is a simple allowlist contract using Hardhat.
+# This is a simple allowlist contract deployed with Hardhat.
 
-This project demonstrates of how to create allowlists, tests that the allowlist is error free, and deploys the smart contract to Goerli testnet with a script. 
+This project demonstrates how to create allowlists, tests that the allowlist is error free, and deploys the smart contract to Goerli testnet using a script. 
 
 Technology Used:
 ```
